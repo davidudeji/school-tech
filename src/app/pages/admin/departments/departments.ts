@@ -1,12 +1,12 @@
 import { Component, signal, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TitleCasePipe, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { AcademicService } from '../../../core/services/academic.service';
 import { Department } from '../../../core/models/academic.model';
 
 @Component({
   selector: 'app-departments',
-  imports: [FormsModule, TitleCasePipe, DecimalPipe],
+  imports: [FormsModule, DecimalPipe],
   templateUrl: './departments.html',
   styleUrl: './departments.css',
 })

@@ -45,7 +45,7 @@ export const routes: Routes = [
         (m) => m.DashboardLayoutComponent
       ),
     children: [
-      // Admin
+      // ── Admin Dashboard ───────────────────────────────────────────
       {
         path: 'admin',
         canActivate: [roleGuard],
@@ -55,7 +55,55 @@ export const routes: Routes = [
             (m) => m.AdminDashboardComponent
           ),
       },
-      // Lecturer
+
+      // ── Phase 3: SIS — Admin sub-pages ───────────────────────────
+      {
+        path: 'admin/students',
+        canActivate: [roleGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./pages/admin/students/students').then(
+            (m) => m.StudentsComponent
+          ),
+      },
+      {
+        path: 'admin/departments',
+        canActivate: [roleGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./pages/admin/departments/departments').then(
+            (m) => m.DepartmentsComponent
+          ),
+      },
+      {
+        path: 'admin/faculties',
+        canActivate: [roleGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./pages/admin/faculties/faculties').then(
+            (m) => m.FacultiesComponent
+          ),
+      },
+      {
+        path: 'admin/sessions',
+        canActivate: [roleGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./pages/admin/sessions/sessions').then(
+            (m) => m.SessionsComponent
+          ),
+      },
+      {
+        path: 'admin/programmes',
+        canActivate: [roleGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./pages/admin/programmes/programmes').then(
+            (m) => m.ProgrammesComponent
+          ),
+      },
+
+      // ── Lecturer Dashboard ────────────────────────────────────────
       {
         path: 'lecturer',
         canActivate: [roleGuard],
@@ -65,7 +113,8 @@ export const routes: Routes = [
             (m) => m.LecturerDashboardComponent
           ),
       },
-      // Student
+
+      // ── Student Dashboard ─────────────────────────────────────────
       {
         path: 'student',
         canActivate: [roleGuard],
@@ -75,6 +124,7 @@ export const routes: Routes = [
             (m) => m.StudentDashboardComponent
           ),
       },
+
       // Default: redirect to login if no subroute
       { path: '', redirectTo: '/login', pathMatch: 'full' },
     ],

@@ -1,42 +1,50 @@
-<!-- navbar.component.html -->
-<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out border-b" [ngClass]="{
-    'bg-[#1A0B3D] border-transparent py-4': !isScrolled(),
-    'bg-[#1A0B3D]/70 backdrop-blur-md border-[rgba(255,255,255,0.08)] py-3 shadow-lg': isScrolled()
-  }">
-    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+<nav class="navbar" [class.navbar-scrolled]="isScrolled()" aria-label="Main navigation">
+  <div class="navbar-inner">
 
-        <!-- Left: Logo Area -->
-        <div class="flex items-center space-x-2 cursor-pointer">
-            <!-- Replace with your actual SVG or Image tag -->
-            <div class="h-8 w-8 bg-[#6d28d9] rounded-lg flex items-center justify-center font-bold text-white">
-                Ω
-            </div>
-            <span class="text-xl font-bold text-white tracking-wide">BrandLogo</span>
-        </div>
+    <!-- Logo -->
+    <a routerLink="/" class="navbar-logo" id="navbar-logo">
+      <div class="logo-icon">ST</div>
+      <div class="logo-text">
+        <span class="logo-school">SCHOOL</span><span class="logo-tech">TECH</span>
+        <span class="logo-tag">ERP</span>
+      </div>
+    </a>
 
-        <!-- Center: Navigation Links -->
-        <div class="hidden md:flex items-center space-x-8">
-            @for (link of navLinks; track link.id) {
-            <a href="javascript:void(0)" (click)="setActive(link.id)"
-                class="text-sm font-medium transition-colors duration-200" [ngClass]="{
-            'text-[#22d3ee]': activeLink() === link.id,
-            'text-[#d1d5db] hover:text-[#ffffff]': activeLink() !== link.id
-          }">
-                {{ link.label }}
-            </a>
-            }
-        </div>
-
-        <!-- Right: Action CTA -->
-        <div class="flex items-center">
-            <button
-                class="bg-[#6d28d9] hover:bg-[#6d28d9]/90 text-white font-medium text-sm px-5 py-2.5 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-md shadow-[#6d28d9]/20">
-                Sign In
-            </button>
-        </div>
-
+    <!-- Desktop Nav Links -->
+    <div class="navbar-links" role="menubar">
+      @for (link of navLinks; track link.id) {
+        <a [href]="link.href" class="nav-link" [class.nav-link-active]="activeLink() === link.id"
+          (click)="setActive(link.id)" [id]="'nav-' + link.id" role="menuitem">
+          {{ link.label }}
+        </a>
+      }
     </div>
-</nav>
 
-<!-- Spacer to prevent content from jumping behind fixed navbar -->
-<div class="h-[72px]"></div>
+    <!-- CTA Actions -->
+    <div class="navbar-cta">
+      <a routerLink="/login" class="btn-nav-ghost" id="nav-login-btn">Log in</a>
+      <a routerLink="/register" class="btn-nav-primary" id="nav-get-started-btn">Get Started</a>
+
+      <!-- Mobile Hamburger -->
+      <button class="hamburger" (click)="toggleMenu()" [class.hamburger-open]="menuOpen()"
+        aria-label="Toggle menu" id="nav-hamburger-btn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  @if (menuOpen()) {
+    <div class="mobile-menu" role="menu">
+      @for (link of navLinks; track link.id) {
+        <a [href]="link.href" class="mobile-nav-link" (click)="closeMenu()" [id]="'mobile-nav-' + link.id" role="menuitem">
+          {{ link.label }}
+        </a>
+      }
+      <div class="mobile-menu-actions">
+        <a routerLink="/login" class="btn-nav-ghost" (click)="closeMenu()" id="mobile-login-btn">Log in</a>
+        <a routerLink="/register" class="btn-nav-primary" (click)="closeMenu()" id="mobile-register-btn">Get Started</a>
+      </div>
+    </div>
+  }
+</nav>

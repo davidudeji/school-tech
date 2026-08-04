@@ -6,13 +6,12 @@ import {
 } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { AcademicService } from '../../../core/services/academic.service';
 import { Student, StudentFilters } from '../../../core/models/academic.model';
 
 @Component({
   selector: 'app-students',
-  imports: [FormsModule, RouterLink, TitleCasePipe],
+  imports: [FormsModule, TitleCasePipe],
   templateUrl: './students.html',
   styleUrl: './students.css',
 })

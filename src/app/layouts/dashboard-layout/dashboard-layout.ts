@@ -43,16 +43,18 @@ export class DashboardLayoutComponent {
 
   // ── Nav items per role ───────────────────────────────────────────────────
   private readonly adminNav: NavItem[] = [
-    { icon: '📊', label: 'Dashboard',  route: '/dashboard/admin' },
-    { icon: '👨‍🎓', label: 'Students',   route: '/dashboard/admin/students' },
-    { icon: '👩‍🏫', label: 'Lecturers',  route: '/dashboard/admin/lecturers' },
-    { icon: '📚', label: 'Courses',    route: '/dashboard/admin/courses' },
+    { icon: '📊', label: 'Dashboard',   route: '/dashboard/admin' },
+    { icon: '👨‍🎓', label: 'Students',    route: '/dashboard/admin/students' },
     { icon: '🏛️',  label: 'Departments', route: '/dashboard/admin/departments' },
-    { icon: '✅', label: 'Attendance', route: '/dashboard/admin/attendance' },
+    { icon: '🎓',  label: 'Faculties',   route: '/dashboard/admin/faculties' },
+    { icon: '📖',  label: 'Programmes',  route: '/dashboard/admin/programmes' },
+    { icon: '📅',  label: 'Sessions',    route: '/dashboard/admin/sessions' },
+    { icon: '📚', label: 'Courses',     route: '/dashboard/admin/courses' },
+    { icon: '✅', label: 'Attendance',  route: '/dashboard/admin/attendance' },
     { icon: '📋', label: 'Assessments', route: '/dashboard/admin/assessments' },
-    { icon: '📈', label: 'Analytics',  route: '/dashboard/admin/analytics' },
-    { icon: '🤖', label: 'AI Suite',   route: '/dashboard/admin/ai' },
-    { icon: '⚙️',  label: 'Settings',  route: '/dashboard/admin/settings' },
+    { icon: '📈', label: 'Analytics',   route: '/dashboard/admin/analytics' },
+    { icon: '🤖', label: 'AI Suite',    route: '/dashboard/admin/ai' },
+    { icon: '⚙️',  label: 'Settings',   route: '/dashboard/admin/settings' },
   ];
 
   private readonly lecturerNav: NavItem[] = [

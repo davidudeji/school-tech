@@ -1,0 +1,79 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Programmes</h1>
+      <p class="page-subtitle">{{ stats().total }} programmes across {{ stats().degrees }} degree types</p>
+    </div>
+    <button class="btn-primary" (click)="showAddModal.set(true)" id="add-programme-btn">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Add Programme
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <div class="search-wrap">
+      <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input id="prog-search" type="text" class="search-input" placeholder="Search programmes…"
+        [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)" />
+    </div>
+    <select class="filter-select" id="dept-filter" [(ngModel)]="selectedDept">
+      <option value="">All Departments</option>
+      @for (dept of departments(); track dept.id) {
+        <option [value]="dept.id">{{ dept.name }}</option>
+      }
+    </select>
+    <select class="filter-select" id="degree-filter" [(ngModel)]="selectedDegree">
+      <option value="">All Degrees</option>
+      @for (deg of degrees; track deg) {
+        <option [value]="deg">{{ deg }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- Programmes Table -->
+  <div class="card">
+    @if (filtered().length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">📖</div>
+        <p class="empty-title">No programmes found</p>
+        <p class="empty-desc">Adjust your filters to see results</p>
+      </div>
+    } @else {
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Programme</th>
+              <th>Code</th>
+              <th>Department</th>
+              <th>Degree</th>
+              <th>Duration</th>
+              <th>Students</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (prog of filtered(); track prog.id) {
+              <tr>
+                <td class="td-name">{{ prog.name }}</td>
+                <td><span class="matric-badge">{{ prog.code }}</span></td>
+                <td class="td-muted">{{ prog.departmentName }}</td>
+                <td>
+                  <span class="degree-badge" [class]="getDegreeClass(prog.degree)">{{ prog.degree }}</span>
+                </td>
+                <td class="td-muted">{{ prog.duration }} year{{ prog.duration > 1 ? 's' : '' }}</td>
+                <td>
+                  <span class="td-badge badge-purple">{{ prog.studentCount }}</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>
