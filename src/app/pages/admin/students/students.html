@@ -1,0 +1,238 @@
+<div class="page">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <h1 class="page-title">Students</h1>
+      <p class="page-subtitle">
+        <span class="total-badge">{{ meta().total }}</span> students registered
+      </p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-secondary" id="export-students-btn">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Export
+      </button>
+      <button class="btn-primary" (click)="showAddModal.set(true)" id="add-student-btn">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Add Student
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <!-- Search -->
+    <div class="search-wrap">
+      <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input
+        id="student-search"
+        type="text"
+        class="search-input"
+        placeholder="Search by name, matric, or email…"
+        [value]="searchQuery()"
+        (input)="onSearch($any($event.target).value)"
+      />
+      @if (searchQuery()) {
+        <button class="search-clear" (click)="onSearch('')" aria-label="Clear search">✕</button>
+      }
+    </div>
+
+    <!-- Department Filter -->
+    <select class="filter-select" id="dept-filter" [(ngModel)]="selectedDept" (change)="onFilterChange()">
+      <option value="">All Departments</option>
+      @for (dept of departments(); track dept.id) {
+        <option [value]="dept.id">{{ dept.name }}</option>
+      }
+    </select>
+
+    <!-- Level Filter -->
+    <select class="filter-select" id="level-filter" [(ngModel)]="selectedLevel" (change)="onFilterChange()">
+      <option value="">All Levels</option>
+      @for (lvl of levels; track lvl) {
+        <option [value]="lvl">{{ lvl }} Level</option>
+      }
+    </select>
+
+    <!-- Status Filter -->
+    <select class="filter-select" id="status-filter" [(ngModel)]="selectedStatus" (change)="onFilterChange()">
+      <option value="">All Statuses</option>
+      @for (st of statuses; track st) {
+        <option [value]="st">{{ st | titlecase }}</option>
+      }
+    </select>
+
+    <!-- Clear -->
+    @if (hasActiveFilters()) {
+      <button class="btn-clear-filters" (click)="clearFilters()" id="clear-filters-btn">
+        Clear filters
+      </button>
+    }
+  </div>
+
+  <!-- Table Card -->
+  <div class="card">
+    @if (students().length === 0) {
+      <!-- Empty State -->
+      <div class="empty-state">
+        <div class="empty-icon">👨‍🎓</div>
+        <p class="empty-title">No students found</p>
+        <p class="empty-desc">Try adjusting your filters or search query</p>
+        @if (hasActiveFilters()) {
+          <button class="btn-secondary" (click)="clearFilters()">Clear filters</button>
+        }
+      </div>
+    } @else {
+      <!-- Table -->
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Matric No.</th>
+              <th>Department</th>
+              <th>Level</th>
+              <th>CGPA</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (student of students(); track student.id) {
+              <tr>
+                <td>
+                  <div class="student-cell">
+                    <div class="student-avatar" [class]="'avatar-' + (student.gender === 'female' ? 'pink' : 'purple')">
+                      {{ student.fullName.charAt(0) }}
+                    </div>
+                    <div class="student-info">
+                      <div class="student-name">{{ student.fullName }}</div>
+                      <div class="student-email">{{ student.email }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="matric-badge">{{ student.matricNumber }}</span></td>
+                <td class="td-dept">{{ student.departmentName }}</td>
+                <td>
+                  <span class="level-badge">{{ getLevelSuffix(student.level) }} yr</span>
+                </td>
+                <td>
+                  <span class="gpa-badge" [class]="getGpaClass(student.cgpa)">{{ student.cgpa?.toFixed(2) ?? 'N/A' }}</span>
+                </td>
+                <td>
+                  <span class="status-badge" [class]="getStatusClass(student.status)">
+                    {{ student.status | titlecase }}
+                  </span>
+                </td>
+                <td>
+                  <div class="row-actions">
+                    <button class="action-btn action-view" (click)="viewStudent(student)"
+                      [id]="'view-student-' + student.id" title="View profile">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                      </svg>
+                    </button>
+                    <button class="action-btn action-edit" [id]="'edit-student-' + student.id" title="Edit">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <div class="pagination-info">
+          Showing {{ (meta().page - 1) * meta().perPage + 1 }}–{{ meta().page * meta().perPage > meta().total ? meta().total : meta().page * meta().perPage }} of {{ meta().total }}
+        </div>
+        <div class="pagination-controls">
+          <button class="page-btn" [disabled]="meta().page === 1" (click)="goToPage(meta().page - 1)" id="prev-page-btn">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          @for (p of pagesArray(); track p) {
+            @if (p === 1 || p === meta().totalPages || (p >= meta().page - 1 && p <= meta().page + 1)) {
+              <button class="page-btn" [class.page-btn-active]="p === meta().page"
+                (click)="goToPage(p)" [id]="'page-btn-' + p">{{ p }}</button>
+            } @else if (p === meta().page - 2 || p === meta().page + 2) {
+              <span class="page-ellipsis">…</span>
+            }
+          }
+          <button class="page-btn" [disabled]="meta().page === meta().totalPages" (click)="goToPage(meta().page + 1)" id="next-page-btn">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- ══ View Student Modal ══════════════════════════════════════ -->
+@if (showViewModal() && selectedStudent()) {
+  <div class="modal-overlay" (click)="closeViewModal()" role="dialog" aria-modal="true" aria-labelledby="modal-student-name">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-student-name">Student Profile</h2>
+        <button class="modal-close" (click)="closeViewModal()" aria-label="Close modal" id="close-student-modal">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="profile-hero">
+          <div class="profile-avatar-lg" [class]="'avatar-' + (selectedStudent()!.gender === 'female' ? 'pink' : 'purple')">
+            {{ selectedStudent()!.fullName.charAt(0) }}
+          </div>
+          <div>
+            <div class="profile-name">{{ selectedStudent()!.fullName }}</div>
+            <div class="profile-matric">{{ selectedStudent()!.matricNumber }}</div>
+            <span class="status-badge mt-4" [class]="getStatusClass(selectedStudent()!.status)">{{ selectedStudent()!.status | titlecase }}</span>
+          </div>
+        </div>
+
+        <div class="profile-grid">
+          <div class="profile-section">
+            <div class="section-label">Academic Info</div>
+            <div class="profile-field"><span>Department</span><span>{{ selectedStudent()!.departmentName }}</span></div>
+            <div class="profile-field"><span>Programme</span><span>{{ selectedStudent()!.programmeName }}</span></div>
+            <div class="profile-field"><span>Level</span><span>{{ selectedStudent()!.level }} Level</span></div>
+            <div class="profile-field"><span>Session</span><span>{{ selectedStudent()!.sessionName }}</span></div>
+            <div class="profile-field"><span>CGPA</span><span class="gpa-badge" [class]="getGpaClass(selectedStudent()!.cgpa)">{{ selectedStudent()!.cgpa?.toFixed(2) }}</span></div>
+          </div>
+
+          <div class="profile-section">
+            <div class="section-label">Personal Info</div>
+            <div class="profile-field"><span>Email</span><span>{{ selectedStudent()!.email }}</span></div>
+            <div class="profile-field"><span>Phone</span><span>{{ selectedStudent()!.phone ?? '—' }}</span></div>
+            <div class="profile-field"><span>Gender</span><span>{{ selectedStudent()!.gender | titlecase }}</span></div>
+            <div class="profile-field"><span>Date of Birth</span><span>{{ selectedStudent()!.dateOfBirth }}</span></div>
+            <div class="profile-field"><span>State of Origin</span><span>{{ selectedStudent()!.stateOfOrigin ?? '—' }}</span></div>
+          </div>
+
+          @if (selectedStudent()!.guardian) {
+            <div class="profile-section">
+              <div class="section-label">Guardian</div>
+              <div class="profile-field"><span>Name</span><span>{{ selectedStudent()!.guardian!.name }}</span></div>
+              <div class="profile-field"><span>Relationship</span><span>{{ selectedStudent()!.guardian!.relationship }}</span></div>
+              <div class="profile-field"><span>Phone</span><span>{{ selectedStudent()!.guardian!.phone }}</span></div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeViewModal()" id="close-profile-btn">Close</button>
+        <button class="btn-primary" id="edit-profile-btn">Edit Student</button>
+      </div>
+    </div>
+  </div>
+}
