@@ -215,6 +215,7 @@ Prerequisite checks
 Course outlines
 Weekly progress tracking
 Registration approval
+
 Lecturer Features
 Update course outline
 Mark weekly topics completed
