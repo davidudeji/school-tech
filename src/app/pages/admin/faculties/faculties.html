@@ -1,0 +1,136 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Faculties</h1>
+      <p class="page-subtitle">{{ faculties().length }} faculties · {{ departments().length }} total departments</p>
+    </div>
+    <button class="btn-primary" (click)="openAdd()" id="add-faculty-btn">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Add Faculty
+    </button>
+  </div>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input id="faculty-search" type="text" class="search-input" placeholder="Search faculties…"
+      [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)" />
+  </div>
+
+  <!-- Faculty List -->
+  <div class="faculty-list">
+    @for (fac of filtered(); track fac.id) {
+      <div class="faculty-card" [id]="'faculty-' + fac.id">
+        <!-- Faculty Header -->
+        <div class="faculty-header">
+          <div class="faculty-header-left">
+            <div class="faculty-code">{{ fac.code }}</div>
+            <div>
+              <h3 class="faculty-name">{{ fac.name }}</h3>
+              <div class="faculty-dean">Dean: {{ fac.dean }}</div>
+            </div>
+          </div>
+          <div class="faculty-header-stats">
+            <div class="fac-stat">
+              <span class="fac-stat-val badge-purple-pill">{{ fac.departmentCount }}</span>
+              <span class="fac-stat-label">Depts</span>
+            </div>
+            <div class="fac-stat">
+              <span class="fac-stat-val badge-green-pill">{{ getTotalStudents(fac.id) }}</span>
+              <span class="fac-stat-label">Students</span>
+            </div>
+            <button class="btn-expand" (click)="selectedFac()?.id === fac.id ? closeDetail() : openDetail(fac)"
+              [id]="'expand-faculty-' + fac.id">
+              @if (selectedFac()?.id === fac.id) { ▲ Collapse } @else { ▼ Expand }
+            </button>
+          </div>
+        </div>
+
+        <!-- Departments Accordion -->
+        @if (selectedFac()?.id === fac.id) {
+          <div class="dept-accordion">
+            <div class="dept-accordion-header">Departments in this Faculty</div>
+            @if (getDepartmentsForFaculty(fac.id).length === 0) {
+              <p class="dept-empty">No departments yet.</p>
+            } @else {
+              <div class="dept-table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Code</th>
+                      <th>Department</th>
+                      <th>HOD</th>
+                      <th>Students</th>
+                      <th>Courses</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (dept of getDepartmentsForFaculty(fac.id); track dept.id) {
+                      <tr>
+                        <td><span class="code-chip">{{ dept.code }}</span></td>
+                        <td class="td-name">{{ dept.name }}</td>
+                        <td class="td-muted">{{ dept.hod }}</td>
+                        <td><span class="td-badge badge-purple">{{ dept.studentCount }}</span></td>
+                        <td><span class="td-badge badge-cyan">{{ dept.courseCount }}</span></td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    @if (filtered().length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">🏫</div>
+        <p class="empty-title">No faculties found</p>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- ══ Add Faculty Modal ═══════════════════════════════════ -->
+@if (showAddModal()) {
+  <div class="modal-overlay" (click)="showAddModal.set(false)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Add Faculty</h2>
+        <button class="modal-close" (click)="showAddModal.set(false)" id="close-add-faculty-modal">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-stack">
+          <div class="form-group">
+            <label class="form-label">Faculty Name</label>
+            <input class="form-input" id="new-fac-name" type="text" placeholder="e.g. Faculty of Computing"
+              [value]="newFac().name" (input)="newFac.set({...newFac(), name: $any($event.target).value})" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Faculty Code</label>
+            <input class="form-input" id="new-fac-code" type="text" placeholder="e.g. FCIT"
+              [value]="newFac().code" (input)="newFac.set({...newFac(), code: $any($event.target).value})" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Dean</label>
+            <input class="form-input" id="new-fac-dean" type="text" placeholder="e.g. Prof. Aliyu Ibrahim"
+              [value]="newFac().dean" (input)="newFac.set({...newFac(), dean: $any($event.target).value})" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="showAddModal.set(false)" id="cancel-add-fac-btn">Cancel</button>
+        <button class="btn-primary" (click)="submitAdd()" id="submit-add-fac-btn">Add Faculty</button>
+      </div>
+    </div>
+  </div>
+}

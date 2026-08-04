@@ -1,0 +1,65 @@
+@import '../departments/departments.css';
+
+/* ─── Faculty List ────────────────────────────────────────── */
+.faculty-list { display: flex; flex-direction: column; gap: 14px; }
+
+.faculty-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.2s;
+}
+
+.faculty-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 22px; flex-wrap: wrap; gap: 14px;
+}
+
+.faculty-header-left { display: flex; align-items: center; gap: 16px; flex: 1; }
+
+.faculty-code {
+  width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(6,182,212,0.15));
+  border: 1px solid rgba(124,58,237,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 800; color: var(--purple-400);
+  text-transform: uppercase; letter-spacing: 0.5px; text-align: center; line-height: 1.2;
+}
+
+.faculty-name { font-size: 0.98rem; font-weight: 700; color: var(--text-primary); margin: 0 0 4px; }
+.faculty-dean { font-size: 0.78rem; color: var(--text-dim); }
+
+.faculty-header-stats { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.fac-stat { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.fac-stat-val   { font-size: 0.78rem; font-weight: 700; }
+.fac-stat-label { font-size: 0.68rem; color: var(--text-dim); }
+
+.badge-purple-pill { background: rgba(124,58,237,0.12); color: var(--purple-400); padding: 2px 10px; border-radius: 10px; }
+.badge-green-pill  { background: rgba(34,197,94,0.1);   color: var(--green-400);  padding: 2px 10px; border-radius: 10px; }
+
+.btn-expand {
+  padding: 7px 14px; background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-subtle); border-radius: 8px;
+  color: var(--text-muted); font-size: 0.75rem; font-weight: 500; font-family: inherit;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.btn-expand:hover { background: var(--bg-hover); color: var(--text-primary); border-color: rgba(124,58,237,0.3); }
+
+/* ─── Accordion ───────────────────────────────────────────── */
+.dept-accordion {
+  border-top: 1px solid var(--border-subtle);
+  padding: 18px 22px;
+  animation: slideDown 0.2s ease;
+}
+@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+.dept-accordion-header {
+  font-size: 0.75rem; font-weight: 700; color: var(--purple-400);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px;
+}
+
+.dept-empty { font-size: 0.82rem; color: var(--text-dim); margin: 0; }
+.dept-table-wrap { overflow-x: auto; }
+.code-chip { font-size: 0.72rem; font-weight: 700; color: var(--cyan-400); background: rgba(6,182,212,0.08); padding: 2px 8px; border-radius: 6px; }

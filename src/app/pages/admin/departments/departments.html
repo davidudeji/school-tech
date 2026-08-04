@@ -1,0 +1,175 @@
+<div class="page">
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Departments</h1>
+      <p class="page-subtitle">Manage academic departments across all faculties</p>
+    </div>
+    <button class="btn-primary" (click)="openAdd()" id="add-dept-btn">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Add Department
+    </button>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-grid-4">
+    <div class="mini-stat mini-stat-purple">
+      <div class="mini-stat-val">{{ stats().total }}</div>
+      <div class="mini-stat-label">Departments</div>
+    </div>
+    <div class="mini-stat mini-stat-cyan">
+      <div class="mini-stat-val">{{ stats().faculties }}</div>
+      <div class="mini-stat-label">Faculties</div>
+    </div>
+    <div class="mini-stat mini-stat-green">
+      <div class="mini-stat-val">{{ stats().students | number }}</div>
+      <div class="mini-stat-label">Total Students</div>
+    </div>
+    <div class="mini-stat mini-stat-amber">
+      <div class="mini-stat-val">{{ stats().courses }}</div>
+      <div class="mini-stat-label">Total Courses</div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <div class="search-wrap">
+      <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input id="dept-search" type="text" class="search-input" placeholder="Search departments…"
+        [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)" />
+    </div>
+    <select class="filter-select" id="faculty-filter" [(ngModel)]="selectedFaculty">
+      <option value="">All Faculties</option>
+      @for (fac of faculties(); track fac.id) {
+        <option [value]="fac.id">{{ fac.code }} — {{ fac.name }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- Department Cards -->
+  @if (filtered().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">🏛️</div>
+      <p class="empty-title">No departments found</p>
+      <p class="empty-desc">Try changing your search or filter</p>
+    </div>
+  } @else {
+    <div class="dept-grid">
+      @for (dept of filtered(); track dept.id) {
+        <div class="dept-card" (click)="openDetail(dept)" [id]="'dept-card-' + dept.id" tabindex="0" role="button">
+          <div class="dept-card-top">
+            <div class="dept-code-badge">{{ dept.code }}</div>
+            <div class="dept-faculty-tag">{{ dept.facultyName }}</div>
+          </div>
+          <h3 class="dept-name">{{ dept.name }}</h3>
+          <div class="dept-hod">👤 {{ dept.hod }}</div>
+          <div class="dept-stats-row">
+            <div class="dept-stat">
+              <span class="dept-stat-val">{{ dept.studentCount }}</span>
+              <span class="dept-stat-label">Students</span>
+            </div>
+            <div class="dept-stat-divider"></div>
+            <div class="dept-stat">
+              <span class="dept-stat-val">{{ dept.courseCount }}</span>
+              <span class="dept-stat-label">Courses</span>
+            </div>
+          </div>
+          <div class="dept-card-footer">
+            <button class="dept-action-btn" (click)="$event.stopPropagation(); openDetail(dept)"
+              [id]="'view-dept-' + dept.id">View Details →</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<!-- ══ Department Detail Modal ════════════════════════════════ -->
+@if (showDetailModal() && selectedDept()) {
+  <div class="modal-overlay" (click)="closeDetail()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <span class="dept-code-badge">{{ selectedDept()!.code }}</span>
+          <h2 class="modal-title">{{ selectedDept()!.name }}</h2>
+        </div>
+        <button class="modal-close" (click)="closeDetail()" id="close-dept-modal">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-grid">
+          <div class="detail-field"><span class="field-label">Faculty</span><span>{{ selectedDept()!.facultyName }}</span></div>
+          <div class="detail-field"><span class="field-label">Head of Department</span><span>{{ selectedDept()!.hod }}</span></div>
+          <div class="detail-field"><span class="field-label">Total Students</span>
+            <span class="badge-purple-sm">{{ selectedDept()!.studentCount }}</span>
+          </div>
+          <div class="detail-field"><span class="field-label">Total Courses</span>
+            <span class="badge-cyan-sm">{{ selectedDept()!.courseCount }}</span>
+          </div>
+          <div class="detail-field"><span class="field-label">Department Code</span><span>{{ selectedDept()!.code }}</span></div>
+          <div class="detail-field"><span class="field-label">Created</span><span>{{ selectedDept()!.createdAt }}</span></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeDetail()" id="close-dept-detail-btn">Close</button>
+        <button class="btn-primary" id="edit-dept-btn">Edit Department</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ══ Add Department Modal ═══════════════════════════════════ -->
+@if (showAddModal()) {
+  <div class="modal-overlay" (click)="showAddModal.set(false)">
+    <div class="modal modal-sm" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Add Department</h2>
+        <button class="modal-close" (click)="showAddModal.set(false)" id="close-add-dept-modal">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-stack">
+          <div class="form-group">
+            <label class="form-label">Department Name</label>
+            <input class="form-input" id="new-dept-name" type="text" placeholder="e.g. Computer Science"
+              [value]="newDept().name" (input)="newDept.set({...newDept(), name: $any($event.target).value})" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Department Code</label>
+            <input class="form-input" id="new-dept-code" type="text" placeholder="e.g. CSC"
+              [value]="newDept().code" (input)="newDept.set({...newDept(), code: $any($event.target).value})" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Faculty</label>
+            <select class="form-input" id="new-dept-faculty"
+              [value]="newDept().facultyId" (change)="newDept.set({...newDept(), facultyId: $any($event.target).value})">
+              <option value="">Select faculty…</option>
+              @for (fac of faculties(); track fac.id) {
+                <option [value]="fac.id">{{ fac.name }}</option>
+              }
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Head of Department</label>
+            <input class="form-input" id="new-dept-hod" type="text" placeholder="e.g. Dr. Aliyu Ibrahim"
+              [value]="newDept().hod" (input)="newDept.set({...newDept(), hod: $any($event.target).value})" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="showAddModal.set(false)" id="cancel-add-dept-btn">Cancel</button>
+        <button class="btn-primary" (click)="submitAdd()" id="submit-add-dept-btn">Add Department</button>
+      </div>
+    </div>
+  </div>
+}

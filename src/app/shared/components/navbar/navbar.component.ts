@@ -1,37 +1,31 @@
-// navbar.component.ts
 import { Component, HostListener, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-navbar',
-    standalone: true,
-    imports: [CommonModule],
-    templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.scss']
+  selector: 'app-navbar',
+  imports: [RouterLink],
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-    // Track whether the page has been scrolled down
-    isScrolled = signal(false);
+  isScrolled  = signal(false);
+  menuOpen    = signal(false);
+  activeLink  = signal('');
 
-    // Tracks active state for links (defaults to empty string or a default route)
-    activeLink = signal('products');
+  navLinks = [
+    { label: 'Features',   id: 'features',   href: '#features'   },
+    { label: 'Modules',    id: 'modules',    href: '#modules'    },
+    { label: 'Pricing',    id: 'pricing',    href: '#pricing'    },
+    { label: 'Testimonials', id: 'testimonials', href: '#testimonials' },
+    { label: 'FAQ',        id: 'faq',        href: '#faq'        },
+  ];
 
-    // Simple array to keep template DRY
-    navLinks = [
-        { label: 'Products', id: 'products' },
-        { label: 'Pricing', id: 'pricing' },
-        { label: 'Contacts', id: 'contacts' },
-        { label: 'Blog', id: 'blog' },
-        { label: 'Community', id: 'community' }
-    ];
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled.set(window.scrollY > 20);
+  }
 
-    @HostListener('window:scroll', [])
-    onWindowScroll() {
-        // If user scrolls past 20px, apply the glassmorphic state
-        this.isScrolled.set(window.scrollY > 20);
-    }
-
-    setActive(id: string) {
-        this.activeLink.set(id);
-    }
+  setActive(id: string) { this.activeLink.set(id); }
+  toggleMenu()          { this.menuOpen.update((v) => !v); }
+  closeMenu()           { this.menuOpen.set(false); }
 }
