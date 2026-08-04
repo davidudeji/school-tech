@@ -1,0 +1,124 @@
+<div class="dash-page">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Admin Dashboard</h1>
+      <p class="page-subtitle">{{ today }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-secondary" id="admin-export-btn">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export Report
+      </button>
+      <button class="btn-primary" id="admin-add-student-btn">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        Add Student
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-grid">
+    @for (stat of stats; track stat.label) {
+      <div class="stat-card" [class]="'stat-card-' + stat.color">
+        <div class="stat-top">
+          <div class="stat-icon">{{ stat.icon }}</div>
+          <div class="stat-trend" [class.trend-up]="stat.trendUp">{{ stat.trend }}</div>
+        </div>
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    }
+  </div>
+
+  <!-- AI Insights Bar -->
+  <div class="ai-insights-bar">
+    <div class="ai-bar-header">
+      <span class="ai-bar-label">🤖 AI Insights</span>
+    </div>
+    <div class="ai-insights-list">
+      @for (insight of aiInsights; track insight.text) {
+        <div class="ai-insight-item" [class]="'insight-' + insight.type">
+          <span class="insight-dot"></span>
+          {{ insight.text }}
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="dashboard-grid">
+
+    <!-- Left Column -->
+    <div class="grid-left">
+
+      <!-- Departments Table -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Departments Overview</h3>
+          <a href="#" class="card-link">View all →</a>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Students</th>
+                <th>Courses</th>
+                <th>HOD</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (dept of departments; track dept.name) {
+                <tr>
+                  <td class="td-name">{{ dept.name }}</td>
+                  <td><span class="td-badge badge-purple">{{ dept.students }}</span></td>
+                  <td><span class="td-badge badge-cyan">{{ dept.courses }}</span></td>
+                  <td class="td-muted">{{ dept.head }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="grid-right">
+
+      <!-- Quick Actions -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Quick Actions</h3>
+        </div>
+        <div class="quick-actions-grid">
+          @for (action of quickActions; track action.label) {
+            <button class="quick-action-btn" [class]="'qa-' + action.color">
+              <span class="qa-icon">{{ action.icon }}</span>
+              <span class="qa-label">{{ action.label }}</span>
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Recent Activity</h3>
+          <a href="#" class="card-link">View all →</a>
+        </div>
+        <div class="activity-list">
+          @for (activity of recentActivities; track activity.text) {
+            <div class="activity-item">
+              <div class="activity-icon-wrap" [class]="'ai-' + activity.color">{{ activity.icon }}</div>
+              <div class="activity-body">
+                <p class="activity-text">{{ activity.text }}</p>
+                <span class="activity-time">{{ activity.time }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

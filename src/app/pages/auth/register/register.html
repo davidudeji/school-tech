@@ -1,0 +1,203 @@
+<div class="auth-root">
+  <div class="auth-bg">
+    <div class="auth-orb auth-orb-1"></div>
+    <div class="auth-orb auth-orb-2"></div>
+    <div class="auth-grid"></div>
+  </div>
+
+  <div class="auth-wrapper">
+    <!-- Left Panel -->
+    <div class="auth-panel-left">
+      <a routerLink="/" class="auth-logo">
+        <div class="logo-icon">ST</div>
+        <div class="logo-text">
+          <span class="logo-school">SCHOOL</span><span class="logo-tech">TECH</span>
+          <span class="logo-erp-tag">ERP</span>
+        </div>
+      </a>
+
+      <div class="auth-panel-copy">
+        <h1 class="auth-panel-title">
+          Join thousands of<br>
+          <span class="gradient-text">school communities.</span>
+        </h1>
+        <p class="auth-panel-subtitle">
+          Create your account and start transforming your educational experience with AI-powered tools designed for every role.
+        </p>
+        <div class="role-features">
+          @for (r of roles; track r.value) {
+            <div class="role-feature-item">
+              <span class="rfi-icon">{{ r.icon }}</span>
+              <div>
+                <div class="rfi-label">{{ r.label }}</div>
+                <div class="rfi-desc">{{ r.desc }}</div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="auth-panel-right">
+      <div class="auth-card">
+        <!-- Header -->
+        <div class="auth-card-header">
+          <h2 class="auth-card-title">Create your account</h2>
+          <p class="auth-card-subtitle">Step {{ step() }} of 2 — {{ step() === 1 ? 'Your Details' : 'Set Password' }}</p>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+          <div class="step-dot" [class.active]="step() >= 1" [class.done]="step() > 1">1</div>
+          <div class="step-line" [class.active]="step() > 1"></div>
+          <div class="step-dot" [class.active]="step() >= 2">2</div>
+        </div>
+
+        <!-- Error -->
+        @if (errorMsg()) {
+          <div class="form-error-alert" role="alert">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+            </svg>
+            {{ errorMsg() }}
+          </div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form" novalidate>
+
+          <!-- ── STEP 1 ── -->
+          @if (step() === 1) {
+            <!-- Full Name -->
+            <div class="form-group" [class.form-group-error]="isInvalid('fullName')">
+              <label class="form-label" for="reg-name">Full Name</label>
+              <div class="input-wrap">
+                <svg class="input-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+                <input id="reg-name" type="text" class="form-input" formControlName="fullName" placeholder="Dr. Amara Okonkwo" autocomplete="name" />
+              </div>
+              @if (isInvalid('fullName')) {
+                <span class="form-hint-error">Please enter your full name (min. 3 characters).</span>
+              }
+            </div>
+
+            <!-- Email -->
+            <div class="form-group" [class.form-group-error]="isInvalid('email')">
+              <label class="form-label" for="reg-email">Email Address</label>
+              <div class="input-wrap">
+                <svg class="input-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+                <input id="reg-email" type="email" class="form-input" formControlName="email" placeholder="you@institution.edu" autocomplete="email" />
+              </div>
+              @if (isInvalid('email')) {
+                <span class="form-hint-error">Please enter a valid email address.</span>
+              }
+            </div>
+
+            <!-- Role Selection -->
+            <div class="form-group">
+              <label class="form-label">Select Your Role</label>
+              <div class="role-cards">
+                @for (r of roles; track r.value) {
+                  <div
+                    class="role-card"
+                    [class.role-card-selected]="form.get('role')?.value === r.value"
+                    (click)="selectRole(r.value)"
+                    [id]="'role-' + r.value">
+                    <span class="rc-icon">{{ r.icon }}</span>
+                    <span class="rc-label">{{ r.label }}</span>
+                    @if (form.get('role')?.value === r.value) {
+                      <span class="rc-check">✓</span>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+
+            <button type="button" class="btn-auth-submit" id="reg-next-btn" (click)="nextStep()">
+              Continue
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </button>
+          }
+
+          <!-- ── STEP 2 ── -->
+          @if (step() === 2) {
+            <!-- Password -->
+            <div class="form-group" [class.form-group-error]="isInvalid('password')">
+              <label class="form-label" for="reg-password">Password</label>
+              <div class="input-wrap">
+                <svg class="input-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <input id="reg-password" [type]="showPass() ? 'text' : 'password'" class="form-input" formControlName="password" placeholder="Min. 8 chars, 1 uppercase, 1 number" autocomplete="new-password" />
+                <button type="button" class="input-toggle" (click)="showPass.update(v => !v)">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </button>
+              </div>
+              @if (isInvalid('password')) {
+                <span class="form-hint-error">
+                  @if (form.get('password')?.errors?.['required']) { Password is required. }
+                  @else if (form.get('password')?.errors?.['minlength']) { Password must be at least 8 characters. }
+                  @else { Must contain at least one uppercase letter and one number. }
+                </span>
+              }
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group" [class.form-group-error]="isInvalid('confirmPassword') || (form.errors?.['mismatch'] && form.get('confirmPassword')?.touched)">
+              <label class="form-label" for="reg-cpassword">Confirm Password</label>
+              <div class="input-wrap">
+                <svg class="input-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <input id="reg-cpassword" [type]="showCPass() ? 'text' : 'password'" class="form-input" formControlName="confirmPassword" placeholder="Re-enter your password" autocomplete="new-password" />
+                <button type="button" class="input-toggle" (click)="showCPass.update(v => !v)">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </button>
+              </div>
+              @if (form.errors?.['mismatch'] && form.get('confirmPassword')?.touched) {
+                <span class="form-hint-error">Passwords do not match.</span>
+              }
+            </div>
+
+            <p class="password-hint">
+              🔒 Password must be at least 8 characters and include an uppercase letter and a number.
+            </p>
+
+            <div class="step2-actions">
+              <button type="button" class="btn-auth-back" (click)="prevStep()">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="m15 18-6-6 6-6"/>
+                </svg>
+                Back
+              </button>
+              <button type="submit" class="btn-auth-submit btn-auth-submit-flex" id="reg-submit-btn" [disabled]="loading()">
+                @if (loading()) {
+                  <span class="btn-spinner"></span> Creating account…
+                } @else {
+                  Create Account
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="m9 18 6-6-6-6"/>
+                  </svg>
+                }
+              </button>
+            </div>
+          }
+        </form>
+
+        <p class="auth-switch">
+          Already have an account?
+          <a routerLink="/login" class="auth-switch-link">Sign in →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

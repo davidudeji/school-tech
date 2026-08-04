@@ -1,0 +1,122 @@
+<div class="dash-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Lecturer Dashboard</h1>
+      <p class="page-subtitle">{{ today }}</p>
+    </div>
+    <button class="btn-primary" id="lec-create-assessment-btn">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      New Assessment
+    </button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    @for (stat of stats; track stat.label) {
+      <div class="stat-card" [class]="'stat-card-' + stat.color">
+        <div class="stat-top">
+          <div class="stat-icon">{{ stat.icon }}</div>
+          <div class="stat-trend">{{ stat.trend }}</div>
+        </div>
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    }
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="grid-left">
+
+      <!-- My Courses -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">My Courses</h3>
+          <a href="#" class="card-link">Manage →</a>
+        </div>
+        <div class="courses-list">
+          @for (course of courses; track course.code) {
+            <div class="course-row">
+              <div class="course-code-wrap">
+                <span class="course-code">{{ course.code }}</span>
+                <span class="course-title-sm">{{ course.title }}</span>
+              </div>
+              <div class="course-meta">
+                <span class="meta-chip">👨‍🎓 {{ course.students }}</span>
+                <div class="progress-wrap">
+                  <div class="progress-bar">
+                    <div class="progress-fill" [style.width]="course.progress + '%'"></div>
+                  </div>
+                  <span class="progress-pct">{{ course.progress }}%</span>
+                </div>
+                <span class="status-badge badge-active">{{ course.status }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Recent Submissions -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Recent Submissions</h3>
+          <a href="#" class="card-link">Grade all →</a>
+        </div>
+        <div class="submissions-list">
+          @for (sub of recentSubmissions; track sub.student) {
+            <div class="submission-item">
+              <div class="sub-avatar">{{ sub.student.charAt(0) }}</div>
+              <div class="sub-body">
+                <p class="sub-name">{{ sub.student }}</p>
+                <p class="sub-details">{{ sub.assignment }} · <span class="sub-course">{{ sub.course }}</span></p>
+              </div>
+              <div class="sub-right">
+                <span class="sub-time">{{ sub.time }}</span>
+                <button class="btn-grade">Grade</button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-right">
+      <!-- Upcoming Classes -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Upcoming Classes</h3>
+        </div>
+        <div class="classes-list">
+          @for (cls of upcomingClasses; track cls.course) {
+            <div class="class-item">
+              <div class="class-time-col">
+                <div class="class-day">{{ cls.day }}</div>
+                <div class="class-time">{{ cls.time }}</div>
+              </div>
+              <div class="class-body">
+                <div class="class-code">{{ cls.course }}</div>
+                <div class="class-venue">📍 {{ cls.venue }}</div>
+              </div>
+              <button class="btn-start">Start</button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- AI Tools -->
+      <div class="card card-ai">
+        <div class="card-header">
+          <h3 class="card-title">🤖 AI Teaching Tools</h3>
+        </div>
+        <div class="ai-tools-grid">
+          @for (tool of aiTools; track tool.label) {
+            <button class="ai-tool-btn" [id]="'ai-tool-' + tool.label.toLowerCase().replace(' ','-')">
+              <span class="ai-tool-icon">{{ tool.icon }}</span>
+              <span class="ai-tool-label">{{ tool.label }}</span>
+              <span class="ai-tool-desc">{{ tool.desc }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

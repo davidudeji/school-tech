@@ -1,0 +1,550 @@
+<div class="landing-root">
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" [class.scrolled]="scrolled()">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="#hero" class="nav-logo" (click)="closeMobile()">
+        <img src="logo.png" alt="School Tech ERP Logo" class="logo-img" />
+        <div class="nav-logo-text">
+          <span class="logo-school">SCHOOL</span><span class="logo-tech">TECH</span>
+          <span class="logo-erp-badge">ERP</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="nav-links">
+        @for (link of navLinks; track link.label) {
+          <a [href]="link.href" class="nav-link">{{ link.label }}</a>
+        }
+      </div>
+
+      <!-- Desktop CTA -->
+      <div class="nav-actions">
+        <a href="#" class="btn-ghost">Sign In</a>
+        <a href="#pricing" class="btn-primary btn-sm">Get Started →</a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button class="hamburger" (click)="toggleMobile()" [class.open]="mobileOpen()" id="hamburger-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    @if (mobileOpen()) {
+      <div class="mobile-menu">
+        @for (link of navLinks; track link.label) {
+          <a [href]="link.href" class="mobile-link" (click)="closeMobile()">{{ link.label }}</a>
+        }
+        <div class="mobile-actions">
+          <a href="#" class="btn-ghost w-full text-center">Sign In</a>
+          <a href="#pricing" class="btn-primary w-full text-center" (click)="closeMobile()">Get Started →</a>
+        </div>
+      </div>
+    }
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section id="hero" class="hero-section">
+    <!-- Background orbs -->
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-container">
+      <div class="hero-content">
+        <!-- Badge -->
+        <div class="hero-badge animate-fade-up">
+          <span class="badge-dot"></span>
+          ✨ Now in Beta — AI-Powered School Management
+        </div>
+
+        <!-- Headline -->
+        <h1 class="hero-title animate-fade-up" style="animation-delay: 0.1s;">
+          The Future of<br>
+          <span class="gradient-text">School Management</span><br>
+          Is Here.
+        </h1>
+
+        <!-- Sub -->
+        <p class="hero-subtitle animate-fade-up" style="animation-delay: 0.2s;">
+          One platform to manage students, courses, attendance,
+          assessments, and analytics — enhanced by AI that works for you.
+        </p>
+
+        <!-- CTAs -->
+        <div class="hero-ctas animate-fade-up" style="animation-delay: 0.3s;">
+          <a href="#pricing" class="btn-primary btn-lg">
+            <span>Start Free Trial</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+          <a href="#" class="btn-secondary btn-lg" id="watch-demo-btn">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="rgba(124,58,237,0.3)" stroke="#8B5CF6" stroke-width="1.5"/><path d="M10 8l6 4-6 4V8z"/></svg>
+            Watch Demo
+          </a>
+        </div>
+
+        <!-- Trust line -->
+        <p class="hero-trust animate-fade-up" style="animation-delay: 0.4s;">
+          <svg width="14" height="14" fill="#22C55E" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+          No credit card required &nbsp;·&nbsp; Free forever for small schools &nbsp;·&nbsp; Setup in 5 minutes
+        </p>
+      </div>
+
+      <!-- Dashboard Mockup -->
+      <div class="hero-mockup animate-float" style="animation-delay: 0.5s;">
+        <div class="mockup-browser">
+          <div class="browser-bar">
+            <div class="browser-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="browser-url">school-tech.app/dashboard</div>
+          </div>
+          <div class="mockup-content">
+            <!-- Sidebar -->
+            <div class="mock-sidebar">
+              <div class="mock-logo-mini">
+                <span class="mock-logo-icon">ST</span>
+              </div>
+              <div class="mock-nav-items">
+                <div class="mock-nav-item active">📊</div>
+                <div class="mock-nav-item">👨‍🎓</div>
+                <div class="mock-nav-item">📚</div>
+                <div class="mock-nav-item">✅</div>
+                <div class="mock-nav-item">✏️</div>
+                <div class="mock-nav-item">💬</div>
+                <div class="mock-nav-item">🤖</div>
+              </div>
+            </div>
+            <!-- Main Content -->
+            <div class="mock-main">
+              <!-- Top bar -->
+              <div class="mock-topbar">
+                <div>
+                  <div class="mock-greeting">Good morning, Admin 👋</div>
+                  <div class="mock-date">Monday, Aug 3, 2026</div>
+                </div>
+                <div class="mock-topbar-right">
+                  <div class="mock-notif">🔔</div>
+                  <div class="mock-avatar">AO</div>
+                </div>
+              </div>
+              <!-- Stats row -->
+              <div class="mock-stats-row">
+                <div class="mock-stat-card" style="--accent: #7C3AED;">
+                  <div class="mock-stat-label">Students</div>
+                  <div class="mock-stat-val">1,284</div>
+                  <div class="mock-stat-trend up">↑ 12%</div>
+                </div>
+                <div class="mock-stat-card" style="--accent: #06B6D4;">
+                  <div class="mock-stat-label">Attendance</div>
+                  <div class="mock-stat-val">87%</div>
+                  <div class="mock-stat-trend up">↑ 3%</div>
+                </div>
+                <div class="mock-stat-card" style="--accent: #10B981;">
+                  <div class="mock-stat-label">Courses</div>
+                  <div class="mock-stat-val">48</div>
+                  <div class="mock-stat-trend neutral">Active</div>
+                </div>
+              </div>
+              <!-- Chart placeholder -->
+              <div class="mock-chart">
+                <div class="mock-chart-title">Academic Performance</div>
+                <div class="mock-chart-bars">
+                  <div class="mock-bar" style="height: 60%; --c: #7C3AED;"></div>
+                  <div class="mock-bar" style="height: 80%; --c: #7C3AED;"></div>
+                  <div class="mock-bar" style="height: 55%; --c: #7C3AED;"></div>
+                  <div class="mock-bar" style="height: 90%; --c: #06B6D4;"></div>
+                  <div class="mock-bar" style="height: 75%; --c: #06B6D4;"></div>
+                  <div class="mock-bar" style="height: 85%; --c: #06B6D4;"></div>
+                  <div class="mock-bar" style="height: 70%; --c: #8B5CF6;"></div>
+                </div>
+                <div class="mock-chart-months">
+                  <span>Feb</span><span>Mar</span><span>Apr</span>
+                  <span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
+                </div>
+              </div>
+              <!-- AI insight -->
+              <div class="mock-ai-banner">
+                <span class="mock-ai-icon">🤖</span>
+                <div>
+                  <div class="mock-ai-title">AI Insight</div>
+                  <div class="mock-ai-text">3 students are at risk of failing CSC 401. Review now →</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Floating badges -->
+        <div class="float-badge float-badge-1">
+          <span>🎓</span> 1,284 Students Enrolled
+        </div>
+        <div class="float-badge float-badge-2">
+          <span>✅</span> Attendance 87%
+        </div>
+        <div class="float-badge float-badge-3">
+          <span>🤖</span> AI Active
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STATS BAR ==================== -->
+  <section class="stats-bar reveal">
+    <div class="stats-container">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-item">
+          <div class="stat-value gradient-text">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- ==================== FEATURES ==================== -->
+  <section id="features" class="section-base">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">⚡ Core Features</div>
+        <h2 class="section-title">Everything you need to run<br><span class="gradient-text">a modern school</span></h2>
+        <p class="section-subtitle">From enrollment to graduation — every academic workflow, digitized and AI-enhanced on one powerful platform.</p>
+      </div>
+
+      <div class="features-grid">
+        @for (feature of features; track feature.title; let i = $index) {
+          <div class="feature-card glass-card glass-card-hover reveal" [class]="'reveal-delay-' + ((i % 3) + 1)">
+            <div class="feature-icon-wrap" [class]="'icon-' + feature.color">
+              <span class="feature-icon">{{ feature.icon }}</span>
+            </div>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-desc">{{ feature.description }}</p>
+            <a href="#" class="feature-link">
+              Learn more
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS ==================== -->
+  <section class="section-base how-section">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">🔄 How It Works</div>
+        <h2 class="section-title">Up and running in<br><span class="gradient-text">3 simple steps</span></h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal reveal-delay-1">
+          <div class="step-number">01</div>
+          <div class="step-icon">🏫</div>
+          <h3 class="step-title">Set Up Your School</h3>
+          <p class="step-desc">Configure departments, faculties, programmes, academic sessions, and semesters in minutes using our guided setup wizard.</p>
+        </div>
+        <div class="step-connector reveal reveal-delay-2">→</div>
+        <div class="step-card reveal reveal-delay-2">
+          <div class="step-number">02</div>
+          <div class="step-icon">👥</div>
+          <h3 class="step-title">Onboard Your Users</h3>
+          <p class="step-desc">Import students, register lecturers, and assign admin roles. Bulk CSV import or individual registration — your choice.</p>
+        </div>
+        <div class="step-connector reveal reveal-delay-3">→</div>
+        <div class="step-card reveal reveal-delay-3">
+          <div class="step-number">03</div>
+          <div class="step-icon">🚀</div>
+          <h3 class="step-title">Go Live Today</h3>
+          <p class="step-desc">Start managing courses, recording attendance, conducting assessments, and leveraging AI insights — all from day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MODULES ==================== -->
+  <section id="modules" class="section-base modules-section">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">🗂️ ERP Modules</div>
+        <h2 class="section-title">8 Integrated Modules.<br><span class="gradient-text">One Powerful Platform.</span></h2>
+        <p class="section-subtitle">Built in 8 development phases, each module is production-ready, AI-enhanced, and seamlessly integrated with every other.</p>
+      </div>
+
+      <div class="modules-grid">
+        @for (mod of modules; track mod.phase; let i = $index) {
+          <div class="module-card glass-card glass-card-hover reveal" [class]="'reveal-delay-' + ((i % 4) + 1)">
+            <div class="module-header">
+              <div class="module-phase">Phase {{ mod.phase }}</div>
+              <div class="module-tag" [class]="getTagClass(mod.tag)">{{ mod.tag }}</div>
+            </div>
+            <div class="module-icon">{{ mod.icon }}</div>
+            <h3 class="module-title">{{ mod.title }}</h3>
+            <p class="module-desc">{{ mod.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS ==================== -->
+  <section id="testimonials" class="section-base">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">💬 Testimonials</div>
+        <h2 class="section-title">Loved by educators<br><span class="gradient-text">and students alike</span></h2>
+        <p class="section-subtitle">Thousands of institutions trust School Tech ERP to power their academic operations every day.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        @for (t of testimonials; track t.name; let i = $index) {
+          <div class="testimonial-card glass-card reveal" [class]="'reveal-delay-' + ((i % 2) + 1)">
+            <!-- Stars -->
+            <div class="testimonial-stars">
+              @for (s of getStars(t.rating); track s) {
+                <span class="star">★</span>
+              }
+            </div>
+            <!-- Quote -->
+            <p class="testimonial-quote">"{{ t.content }}"</p>
+            <!-- Author -->
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">{{ t.avatar }}</div>
+              <div>
+                <div class="testimonial-name">{{ t.name }}</div>
+                <div class="testimonial-role">{{ t.role }}, {{ t.institution }}</div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PRICING ==================== -->
+  <section id="pricing" class="section-base pricing-section">
+    <!-- Background decoration -->
+    <div class="pricing-orb"></div>
+
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">💰 Pricing</div>
+        <h2 class="section-title">Simple, transparent<br><span class="gradient-text">pricing for every school</span></h2>
+        <p class="section-subtitle">Start free. Scale as you grow. No hidden fees, no surprises.</p>
+      </div>
+
+      <div class="pricing-grid">
+        @for (plan of pricingPlans; track plan.name; let i = $index) {
+          <div class="pricing-card reveal" [class]="'reveal-delay-' + (i + 1)" [class.pricing-card-featured]="plan.highlighted">
+            @if (plan.badge) {
+              <div class="pricing-badge">{{ plan.badge }}</div>
+            }
+            <div class="pricing-header">
+              <h3 class="pricing-name">{{ plan.name }}</h3>
+              <div class="pricing-price">
+                <span class="price-amount">{{ plan.price }}</span>
+                <span class="price-period">{{ plan.period }}</span>
+              </div>
+              <p class="pricing-desc">{{ plan.description }}</p>
+              <div class="pricing-students">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zm8 0a3 3 0 11-6 0 3 3 0 016 0zM3.5 13.5A4.5 4.5 0 018 9h4a4.5 4.5 0 014.5 4.5c0 .83-.67 1.5-1.5 1.5H5a1.5 1.5 0 01-1.5-1.5z"/></svg>
+                {{ plan.students }}
+              </div>
+            </div>
+            <ul class="pricing-features">
+              @for (f of plan.features; track f) {
+                <li class="pricing-feature">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="check-icon"><path d="M5 13l4 4L19 7"/></svg>
+                  {{ f }}
+                </li>
+              }
+            </ul>
+            <a href="#contact" class="pricing-cta" [class.pricing-cta-featured]="plan.highlighted">
+              {{ plan.cta }}
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+          </div>
+        }
+      </div>
+
+      <div class="pricing-guarantee reveal">
+        <svg width="20" height="20" fill="#22C55E" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+        30-day money-back guarantee &nbsp;·&nbsp; No setup fees &nbsp;·&nbsp; Cancel anytime
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ==================== -->
+  <section id="faq" class="section-base">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">❓ FAQ</div>
+        <h2 class="section-title">Questions? We have<br><span class="gradient-text">all the answers.</span></h2>
+      </div>
+
+      <div class="faq-list">
+        @for (faq of faqs; track faq.question; let i = $index) {
+          <div class="faq-item glass-card reveal" [class.faq-open]="isFaqOpen(i)" [class]="'reveal-delay-' + ((i % 3) + 1)">
+            <button class="faq-question" (click)="toggleFaq(i)" [id]="'faq-btn-' + i">
+              <span>{{ faq.question }}</span>
+              <span class="faq-chevron" [class.rotate]="isFaqOpen(i)">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+              </span>
+            </button>
+            @if (isFaqOpen(i)) {
+              <div class="faq-answer">
+                <p>{{ faq.answer }}</p>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT / CTA ==================== -->
+  <section id="contact" class="section-base contact-section">
+    <div class="contact-orb-1"></div>
+    <div class="contact-orb-2"></div>
+
+    <div class="section-container">
+      <div class="contact-grid">
+        <!-- Left: CTA Copy -->
+        <div class="contact-copy reveal">
+          <div class="section-badge">📬 Get In Touch</div>
+          <h2 class="section-title mt-6">Ready to transform<br><span class="gradient-text">your institution?</span></h2>
+          <p class="section-subtitle mt-4">Join hundreds of schools already using School Tech ERP. Our team will guide you through setup and onboarding.</p>
+          <div class="contact-perks">
+            <div class="contact-perk">
+              <span class="perk-icon">✅</span>
+              <span>Free setup assistance</span>
+            </div>
+            <div class="contact-perk">
+              <span class="perk-icon">⚡</span>
+              <span>Response within 24 hours</span>
+            </div>
+            <div class="contact-perk">
+              <span class="perk-icon">🔒</span>
+              <span>Your data is always private</span>
+            </div>
+            <div class="contact-perk">
+              <span class="perk-icon">🤝</span>
+              <span>Dedicated onboarding team</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div class="contact-form-wrap glass-card reveal reveal-delay-2">
+          <h3 class="form-title">Send us a message</h3>
+          <form class="contact-form" id="contact-form" (submit)="$event.preventDefault()">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name-input">Full Name</label>
+                <input class="form-input" id="name-input" type="text" placeholder="Dr. Amara Okonkwo" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email-input">Email Address</label>
+                <input class="form-input" id="email-input" type="email" placeholder="principal@school.edu" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="institution-input">Institution Name</label>
+              <input class="form-input" id="institution-input" type="text" placeholder="Stellar International Academy" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="plan-select">Interested Plan</label>
+              <select class="form-input" id="plan-select">
+                <option value="">Select a plan...</option>
+                <option value="starter">Starter (Free)</option>
+                <option value="professional">Professional ($99/mo)</option>
+                <option value="enterprise">Enterprise ($299/mo)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message-input">Message</label>
+              <textarea class="form-input form-textarea" id="message-input" rows="4" placeholder="Tell us about your institution and what you're looking for..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary btn-full" id="submit-contact-btn">
+              Send Message
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="logo.png" alt="School Tech ERP" class="footer-logo-img" />
+          <div>
+            <div class="footer-logo-text"><span class="logo-school">SCHOOL</span><span class="logo-tech">TECH</span></div>
+            <div class="footer-tagline">Smarter Schools. Better Futures.</div>
+          </div>
+        </div>
+        <p class="footer-desc">The modern, AI-powered ERP system built to transform education management at every level.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-link" aria-label="GitHub">⌥</a>
+          <a href="#" class="social-link" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h4 class="footer-col-title">Product</h4>
+          <a href="#features" class="footer-link">Features</a>
+          <a href="#modules" class="footer-link">Modules</a>
+          <a href="#pricing" class="footer-link">Pricing</a>
+          <a href="#" class="footer-link">Changelog</a>
+          <a href="#" class="footer-link">Roadmap</a>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Platform</h4>
+          <a href="#" class="footer-link">Admin Portal</a>
+          <a href="#" class="footer-link">Student Portal</a>
+          <a href="#" class="footer-link">Lecturer Portal</a>
+          <a href="#" class="footer-link">AI Suite</a>
+          <a href="#" class="footer-link">API Docs</a>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Company</h4>
+          <a href="#" class="footer-link">About</a>
+          <a href="#" class="footer-link">Blog</a>
+          <a href="#" class="footer-link">Careers</a>
+          <a href="#contact" class="footer-link">Contact</a>
+          <a href="#" class="footer-link">Partners</a>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Legal</h4>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Service</a>
+          <a href="#" class="footer-link">Cookie Policy</a>
+          <a href="#" class="footer-link">Security</a>
+          <a href="#" class="footer-link">Compliance</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 School Tech ERP. All rights reserved. Built with ❤️ for educators.</p>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy</a>
+        <a href="#" class="footer-bottom-link">Terms</a>
+        <a href="#" class="footer-bottom-link">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+</div>

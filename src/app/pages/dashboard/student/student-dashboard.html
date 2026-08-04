@@ -1,0 +1,123 @@
+<div class="dash-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Student Dashboard</h1>
+      <p class="page-subtitle">{{ today }}</p>
+    </div>
+    <button class="btn-primary" id="student-register-course-btn">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Register Course
+    </button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    @for (stat of stats; track stat.label) {
+      <div class="stat-card" [class]="'stat-card-' + stat.color">
+        <div class="stat-top">
+          <div class="stat-icon">{{ stat.icon }}</div>
+        </div>
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+        <div class="stat-sub">{{ stat.sub }}</div>
+      </div>
+    }
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="grid-left">
+
+      <!-- Enrolled Courses -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">My Courses</h3>
+          <a href="#" class="card-link">All courses →</a>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Lecturer</th>
+                <th>Attendance</th>
+                <th>Grade</th>
+                <th>Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (c of courses; track c.code) {
+                <tr>
+                  <td>
+                    <div class="course-cell">
+                      <span class="course-code">{{ c.code }}</span>
+                      <span class="course-title-sm">{{ c.title }}</span>
+                    </div>
+                  </td>
+                  <td class="td-muted">{{ c.lecturer }}</td>
+                  <td>
+                    <span class="attendance-badge" [class]="c.attendance >= 85 ? 'att-good' : 'att-warn'">{{ c.attendance }}%</span>
+                  </td>
+                  <td>
+                    <span class="grade-badge" [class]="'grade-' + getGradeColor(c.grade)">{{ c.grade }}</span>
+                  </td>
+                  <td>
+                    <div class="progress-bar">
+                      <div class="progress-fill" [style.width]="c.progress + '%'"></div>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-right">
+
+      <!-- Upcoming Assessments -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Upcoming Assessments</h3>
+          <a href="#" class="card-link">View all →</a>
+        </div>
+        <div class="assessments-list">
+          @for (a of upcomingAssessments; track a.title) {
+            <div class="assessment-item">
+              <div class="assessment-left">
+                <span class="assessment-type" [class]="a.type.toLowerCase()">{{ a.type }}</span>
+                <div class="assessment-title">{{ a.title }}</div>
+                <div class="assessment-course">{{ a.course }}</div>
+              </div>
+              <div class="assessment-right">
+                <div class="days-left" [class]="'days-' + getDaysColor(a.daysLeft)">{{ a.daysLeft }}d</div>
+                <div class="due-date">{{ a.dueDate }}</div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- AI Study Assistant -->
+      <div class="card card-ai">
+        <div class="ai-header">
+          <span class="ai-icon-big">🤖</span>
+          <div>
+            <h3 class="card-title">AI Study Assistant</h3>
+            <p class="ai-subtitle">Ask me anything about your courses</p>
+          </div>
+        </div>
+        <div class="ai-prompts">
+          @for (prompt of aiStudyPrompts; track prompt) {
+            <button class="ai-prompt-chip" [id]="'ai-prompt-' + $index">
+              {{ prompt }}
+            </button>
+          }
+        </div>
+        <button class="btn-ai-open" id="open-ai-assistant-btn">
+          Open AI Study Assistant →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
