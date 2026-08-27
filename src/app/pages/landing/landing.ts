@@ -49,6 +49,18 @@ export interface FaqItem {
   answer: string;
 }
 
+export interface Problem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface ComparisonRow {
+  feature: string;
+  old: string;
+  new: string;
+}
+
 @Component({
   selector: 'app-landing',
   imports: [],
@@ -313,6 +325,82 @@ export class LandingComponent {
     { label: 'Pricing', href: '#pricing' },
     { label: 'FAQ', href: '#faq' },
     { label: 'Contact', href: '#contact' },
+  ];
+
+  readonly problems: Problem[] = [
+    {
+      icon: '📊',
+      title: 'Data scattered across dozens of tools',
+      description: 'Student records in one spreadsheet. Attendance in another. Grades in a third. No one has a complete picture, and reconciling the data takes hours every week.',
+    },
+    {
+      icon: '⏳',
+      title: 'Manual work that should not exist',
+      description: 'Printing registers, chasing submission emails, copying results into result sheets by hand. Admin staff spend the majority of their day on tasks a computer should handle.',
+    },
+    {
+      icon: '🚫',
+      title: 'No real-time decisions',
+      description: 'By the time attendance reports reach the right desk, the semester is half over. Problems that AI could flag in seconds take weeks to surface through manual processes.',
+    },
+    {
+      icon: '🔒',
+      title: 'No role-based access control',
+      description: 'Everyone sees everything, or worse, access is restricted so tightly that staff cannot do their jobs without calling IT. Neither extreme serves the school.',
+    },
+    {
+      icon: '💸',
+      title: 'Enterprise ERP built for corporations, not schools',
+      description: 'The big ERP vendors charge five times more than schools can afford, require months of implementation, and still do not support Nigerian academic structures.',
+    },
+    {
+      icon: '📉',
+      title: 'Student performance problems go undetected',
+      description: 'At-risk students fall through the cracks until exam results confirm what a well-designed system would have flagged months earlier. By then, intervention is too late.',
+    },
+  ];
+
+  readonly comparisonRows: ComparisonRow[] = [
+    {
+      feature: 'Student records',
+      old: 'Scattered across spreadsheets and paper files',
+      new: 'Single unified profile from enrollment to graduation',
+    },
+    {
+      feature: 'Attendance tracking',
+      old: 'Manual registers, transcribed after class',
+      new: 'Live digital logs with automated absence alerts',
+    },
+    {
+      feature: 'Course registration',
+      old: 'Physical forms, queues, manual approval',
+      new: 'Online, with prerequisite checks and instant confirmation',
+    },
+    {
+      feature: 'Results & GPA',
+      old: 'Computed manually in Excel, error-prone',
+      new: 'Automated GPA/CGPA calculation with transcript export',
+    },
+    {
+      feature: 'At-risk detection',
+      old: 'Discovered after exam failure',
+      new: 'AI flags at-risk students weeks in advance',
+    },
+    {
+      feature: 'Role access',
+      old: 'One login, everyone sees everything',
+      new: 'Separate portals for admins, lecturers, and students',
+    },
+    {
+      feature: 'Setup time',
+      old: '6–18 months, expensive consultants',
+      new: '2 days, guided setup wizard, our team walks you through',
+    },
+    {
+      feature: 'Cost',
+      old: '$10,000+ per year for enterprise ERP',
+      new: 'Free for small schools. $99/month for growing institutions',
+    },
   ];
 
   constructor() {

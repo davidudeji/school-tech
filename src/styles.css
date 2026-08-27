@@ -194,10 +194,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .section-title {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.25rem, 1.7rem + 1.8vw, 3.5rem);
   font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 1.15;
+  line-height: 1.12;
 }
 
 .section-subtitle {

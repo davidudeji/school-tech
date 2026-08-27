@@ -57,22 +57,22 @@
 
     <div class="hero-container">
       <div class="hero-content">
-        <!-- Badge -->
-        <div class="hero-badge animate-fade-up">
-          <span class="badge-dot"></span>
-          ✨ Now in Beta — AI-Powered School Management
+        <!-- Eyebrow -->
+        <div class="hero-eyebrow animate-fade-up">
+          <span class="eyebrow-dot"></span>
+          <span class="text-eyebrow">AI-powered school management · Now in beta</span>
         </div>
 
         <!-- Headline -->
         <h1 class="hero-title animate-fade-up" style="animation-delay: 0.1s;">
-          School Management,<br>
-          <span class="gradient-text">Actually Simple.</span>
+          School management,<br>
+          <span class="gradient-text">done properly.</span>
         </h1>
 
         <!-- Sub -->
         <p class="hero-subtitle animate-fade-up" style="animation-delay: 0.2s;">
-          One platform to manage students, courses, attendance,
-          assessments, and analytics. AI handles the patterns; you handle the people.
+          One platform to run students, courses, attendance, assessments
+          and analytics. AI handles the patterns so your staff can focus on the people.
         </p>
 
         <!-- CTAs -->
@@ -206,6 +206,35 @@
     </div>
   </section>
 
+  <!-- ==================== PROBLEM ==================== -->
+  <section class="section-base problem-section">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">📋 The Problem</div>
+        <h2 class="section-title">Most schools still run on<br><span class="gradient-text">spreadsheets and paper.</span></h2>
+        <p class="section-subtitle">The old way fragments your data across a dozen tools, creates manual work that should not exist, and makes real-time decisions impossible.</p>
+      </div>
+
+      <div class="problem-grid">
+        @for (problem of problems; track problem.title; let i = $index) {
+          <div class="problem-card reveal" [class]="'reveal-delay-' + ((i % 3) + 1)">
+            <div class="problem-icon">{{ problem.icon }}</div>
+            <div class="problem-content">
+              <h3 class="problem-title">{{ problem.title }}</h3>
+              <p class="problem-desc">{{ problem.description }}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="problem-solution-bridge reveal">
+        <div class="bridge-line"></div>
+        <div class="bridge-label">There is a better way</div>
+        <div class="bridge-line"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ==================== FEATURES ==================== -->
   <section id="features" class="section-base">
     <div class="section-container">
@@ -324,6 +353,56 @@
     </div>
   </section>
 
+  <!-- ==================== COMPARISON ==================== -->
+  <section class="section-base comparison-section">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <div class="section-badge">⚖️ The Difference</div>
+        <h2 class="section-title">Traditional ERP vs
+          <br><span class="gradient-text">School Tech ERP</span>
+        </h2>
+        <p class="section-subtitle">Generic enterprise software was not built for schools. We were.</p>
+      </div>
+
+      <div class="comparison-table-wrap reveal">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th class="comparison-th feature-col">What you need</th>
+              <th class="comparison-th old-col">
+                <div class="col-header">
+                  <span class="col-tag col-tag-old">Old way</span>
+                  <span class="col-title-text">Spreadsheets &amp; legacy ERP</span>
+                </div>
+              </th>
+              <th class="comparison-th new-col">
+                <div class="col-header">
+                  <span class="col-tag col-tag-new">School Tech ERP</span>
+                  <span class="col-title-text">Built for education</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of comparisonRows; track row.feature) {
+              <tr class="comparison-row">
+                <td class="comparison-feature">{{ row.feature }}</td>
+                <td class="comparison-cell old-cell">
+                  <span class="cell-icon cell-bad">✗</span>
+                  {{ row.old }}
+                </td>
+                <td class="comparison-cell new-cell">
+                  <span class="cell-icon cell-good">✓</span>
+                  {{ row.new }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- ==================== PRICING ==================== -->
   <section id="pricing" class="section-base pricing-section">
     <!-- Background decoration -->
@@ -401,6 +480,50 @@
             }
           </div>
         }
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FINAL CTA ==================== -->
+  <section class="section-base final-cta-section">
+    <div class="final-cta-orb final-cta-orb-1"></div>
+    <div class="final-cta-orb final-cta-orb-2"></div>
+    <div class="final-cta-grid"></div>
+
+    <div class="section-container">
+      <div class="final-cta-content reveal">
+        <div class="section-badge">🚀 Ready to begin?</div>
+        <h2 class="final-cta-headline">
+          Run your school the way it<br>
+          <span class="gradient-text">was always meant to run.</span>
+        </h2>
+        <p class="final-cta-sub">
+          Hundreds of institutions have already moved their academic operations to School Tech ERP.
+          Setup takes two days. Results show from week one.
+        </p>
+        <div class="final-cta-actions">
+          <a href="#pricing" class="btn-primary btn-lg" id="final-cta-primary">
+            <span>Start Free Trial</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+          <a href="#contact" class="btn-secondary btn-lg" id="final-cta-secondary">
+            Talk to the Team
+          </a>
+        </div>
+        <div class="final-cta-trust">
+          <div class="trust-item">
+            <svg width="14" height="14" fill="#22C55E" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+            No credit card required
+          </div>
+          <div class="trust-item">
+            <svg width="14" height="14" fill="#22C55E" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+            Free for schools under 100 students
+          </div>
+          <div class="trust-item">
+            <svg width="14" height="14" fill="#22C55E" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+            30-day money-back guarantee
+          </div>
+        </div>
       </div>
     </div>
   </section>
