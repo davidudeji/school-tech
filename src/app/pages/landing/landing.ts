@@ -70,42 +70,42 @@ export class LandingComponent {
       icon: '🤖',
       title: 'Analytics',
       description:
-        'Intelligent insights into academic performance, attendance patterns, and at-risk student detection powered by cutting-edge AI.',
+        'Spot underperforming students, attendance dips, and grade trends before they become problems. Powered by AI trained on academic data.',
       color: 'purple',
     },
     {
       icon: '🎓',
       title: 'Student Information System',
       description:
-        'Complete lifecycle management — from enrollment to graduation. Profiles, guardian records, academic history, all in one place.',
+        'Enrollment to graduation, one record. Profiles, guardian contacts, academic history, and programme details in a single place.',
       color: 'cyan',
     },
     {
       icon: '📚',
       title: 'Course Management',
       description:
-        'Seamless course creation, lecturer assignment, registration, prerequisites, outlines, and weekly progress tracking.',
+        'Create courses, assign lecturers, open registration, set prerequisites, publish outlines, and track weekly progress without switching tools.',
       color: 'purple',
     },
     {
       icon: '📋',
       title: 'Attendance Tracking',
       description:
-        'Real-time attendance monitoring for students and staff. Automated reports, alerts, and integration with assessments.',
+        'Live attendance logs for students and staff. Automated reports flag absences before they hit the threshold that triggers consequences.',
       color: 'cyan',
     },
     {
       icon: '✏️',
       title: 'Assessment Engine',
       description:
-        'Online tests, quizzes, assignments, question banks, automatic grading, GPA/CGPA calculation, and transcript generation.',
+        'Online tests, quizzes, assignments, question banks, auto-grading for objective questions, GPA/CGPA calculation, and transcript export.',
       color: 'purple',
     },
     {
       icon: '💬',
       title: 'Communication Hub',
       description:
-        'Real-time messaging, announcements, in-app notifications, and email alerts keeping everyone connected and informed.',
+        'In-app messages, announcements, and email alerts for students, lecturers, and admins. One channel, not five.',
       color: 'cyan',
     },
   ];
@@ -115,56 +115,56 @@ export class LandingComponent {
       phase: 1,
       title: 'Marketing & Website',
       icon: '🌐',
-      description: 'Professional landing page, SEO, and school branding',
+      description: 'Landing page, SEO, and school branding that runs before the app is live',
       tag: 'Live',
     },
     {
       phase: 2,
       title: 'Auth & Security',
       icon: '🔐',
-      description: 'JWT auth, role-based access, admin/lecturer/student portals',
+      description: 'JWT auth, role-based access control, and separate portals for admins, lecturers, and students',
       tag: 'Core',
     },
     {
       phase: 3,
       title: 'Student Information',
       icon: '👨‍🎓',
-      description: 'Student profiles, departments, faculties, programmes',
+      description: 'Student profiles, departments, faculties, and programme records',
       tag: 'Core',
     },
     {
       phase: 4,
       title: 'Course Management',
       icon: '📖',
-      description: 'Course registration, outlines, materials, and approvals',
+      description: 'Course registration, outlines, uploaded materials, and approval workflows',
       tag: 'Core',
     },
     {
       phase: 5,
       title: 'Attendance & Assessments',
       icon: '✅',
-      description: 'Attendance tracking, quizzes, assignments, grading',
+      description: 'Attendance logs, online quizzes, assignments, and auto-grading',
       tag: 'Advanced',
     },
     {
       phase: 6,
       title: 'Results & Analytics',
       icon: '📊',
-      description: 'GPA/CGPA, transcripts, promotion checks, dashboards',
+      description: 'GPA/CGPA calculation, transcripts, promotion checks, and performance dashboards',
       tag: 'Advanced',
     },
     {
       phase: 7,
-      title: 'Productivity Suite',
+      title: 'AI Productivity Suite',
       icon: '🤖',
-      description: 'Study assistant, quiz generation, smart insights',
+      description: 'Study assistant, quiz generation from lecture notes, and natural-language admin queries',
       tag: 'AI',
     },
     {
       phase: 8,
       title: 'Production & Deployment',
       icon: '🚀',
-      description: 'CI/CD, Docker, monitoring, security hardening',
+      description: 'CI/CD pipeline, Docker support, monitoring, and security hardening',
       tag: 'DevOps',
     },
   ];
@@ -176,7 +176,7 @@ export class LandingComponent {
       institution: 'Stellar International Academy',
       avatar: 'AO',
       content:
-        'School Tech ERP has completely transformed how we manage our institution. The AI insights helped us identify at-risk students months before they would have failed. Truly remarkable.',
+        'School Tech ERP changed how we run the school. The AI flagged at-risk students months before exam period. We caught three cases that would have slipped through.',
       rating: 5,
     },
     {
@@ -185,7 +185,7 @@ export class LandingComponent {
       institution: 'Lagos Tech University',
       avatar: 'CE',
       content:
-        'The student portal is incredible. I can register courses, track attendance, download materials, and the AI study assistant helps me prepare for exams. It feels like having a personal tutor!',
+        'I register courses, check attendance, and download lecture notes from one place. The AI study assistant broke down my toughest topics in plain language. Passed CSC 401 because of it.',
       rating: 5,
     },
     {
@@ -194,7 +194,7 @@ export class LandingComponent {
       institution: 'Northern Federal Polytechnic',
       avatar: 'FA',
       content:
-        'Managing course outlines, tracking weekly topics, and communicating with students has never been easier. The grading automation saves me hours every week.',
+        'I used to spend Sunday evenings updating course records and chasing students for submissions. That\'s gone. The grading automation alone saves me about four hours a week.',
       rating: 5,
     },
     {
@@ -203,7 +203,7 @@ export class LandingComponent {
       institution: 'Excellence Secondary School',
       avatar: 'KA',
       content:
-        'The deployment was seamless and the support team is phenomenal. Our data is secure, the uptime is exceptional, and our staff adapted quickly to the intuitive interface.',
+        'Setup took two days. The support team answered every question the same day. Staff were using it on their own by the end of week one. Uptime has been solid at 99.9% for eight months.',
       rating: 5,
     },
   ];
@@ -271,32 +271,32 @@ export class LandingComponent {
     {
       question: 'What is School Tech ERP?',
       answer:
-        'School Tech ERP is a modern, AI-powered Enterprise Resource Planning system built specifically for educational institutions. It provides a single platform to manage students, courses, attendance, assessments, results, and communication — all enhanced with AI-driven insights.',
+        'School Tech ERP is a school ERP built for educational institutions. It runs students, courses, attendance, assessments, results, and communication from one platform, with AI features layered on top for insights and automation.',
     },
     {
       question: 'Is there a free trial available?',
       answer:
-        'Yes! Our Starter plan is completely free for institutions with up to 100 students and includes all core features. For larger institutions, we offer a 30-day free trial on our Professional plan — no credit card required.',
+        'The Starter plan is free for schools with up to 100 students and covers all core modules. If you need more capacity, the Professional plan comes with a 30-day trial, no credit card required.',
     },
     {
       question: 'Can we import our existing student data?',
       answer:
-        'Absolutely. We provide bulk import tools for CSV/Excel files and a full REST API for custom integrations. Our onboarding team will guide you through migrating your existing data seamlessly.',
+        'Yes. You can upload CSV or Excel files with our bulk import tool, or use the REST API for custom data pipelines. The onboarding team handles the migration with you step by step.',
     },
     {
       question: 'What AI features are included?',
       answer:
-        'Our AI suite includes: a student study assistant that explains notes and recommends study plans, an admin AI for at-risk student detection and natural-language queries, and a lecturer AI for quiz generation and grading feedback. Phase 7 details all AI capabilities.',
+        'Three AI tools ship with the platform: a student study assistant that explains lecture notes and builds study plans, an admin tool for at-risk student detection and natural-language database queries, and a lecturer tool that generates quizzes from uploaded notes and suggests grading feedback. Full details are in Phase 7 of the spec.',
     },
     {
       question: 'Is the platform mobile-friendly?',
       answer:
-        'Yes, School Tech ERP is fully responsive and works beautifully on all devices. We are also building a Progressive Web App (PWA) version so students and staff can install it on their phones for an app-like experience.',
+        'Yes. The app is fully responsive across phones, tablets, and desktops. A Progressive Web App version is in development so students and staff can install it directly from the browser.',
     },
     {
       question: 'How secure is our institution data?',
       answer:
-        'Security is our top priority. We use JWT authentication, bcrypt password hashing, role-based access control, encrypted data at rest and in transit, audit logs, and comply with data protection regulations. Enterprise plans also include on-premise deployment options.',
+        'The platform uses JWT authentication, bcrypt password hashing, role-based access control, encryption at rest and in transit, and full audit logs. Enterprise plans add an on-premise deployment option for institutions that cannot use cloud storage.',
     },
   ];
 
